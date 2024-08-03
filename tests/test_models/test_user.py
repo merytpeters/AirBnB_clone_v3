@@ -10,7 +10,6 @@ from models import user
 from models.base_model import BaseModel
 import pycodestyle
 import unittest
-import sys
 User = user.User
 
 
