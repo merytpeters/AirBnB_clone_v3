@@ -6,11 +6,10 @@ Contains the TestReviewDocs classes
 from datetime import datetime
 import inspect
 import models
-from models import review
+from models.review import Review
 from models.base_model import BaseModel
 import pycodestyle
 import unittest
-Review = review.Review
 
 
 class TestReviewDocs(unittest.TestCase):
@@ -36,9 +35,9 @@ class TestReviewDocs(unittest.TestCase):
 
     def test_review_module_docstring(self):
         """Test for the review.py module docstring"""
-        self.assertIsNot(review.__doc__, None,
+        self.assertIsNot(Review.__doc__, None,
                          "review.py needs a docstring")
-        self.assertTrue(len(review.__doc__) >= 1,
+        self.assertTrue(len(Review.__doc__) >= 1,
                         "review.py needs a docstring")
 
     def test_review_class_docstring(self):
