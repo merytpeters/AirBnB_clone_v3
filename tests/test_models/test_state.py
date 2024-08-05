@@ -6,10 +6,11 @@ Contains the TestStateDocs classes
 from datetime import datetime
 import inspect
 import models
-from models.state import State
+from models import state
 from models.base_model import BaseModel
 import pycodestyle
 import unittest
+State = state.State
 
 
 class TestStateDocs(unittest.TestCase):
@@ -35,9 +36,9 @@ class TestStateDocs(unittest.TestCase):
 
     def test_state_module_docstring(self):
         """Test for the state.py module docstring"""
-        self.assertIsNot(State.__doc__, None,
+        self.assertIsNot(state.__doc__, None,
                          "state.py needs a docstring")
-        self.assertTrue(len(State.__doc__) >= 1,
+        self.assertTrue(len(state.__doc__) >= 1,
                         "state.py needs a docstring")
 
     def test_state_class_docstring(self):

@@ -6,10 +6,11 @@ Contains the TestUserDocs classes
 from datetime import datetime
 import inspect
 import models
-from models.user import User
+from models import user
 from models.base_model import BaseModel
 import pycodestyle
 import unittest
+User = user.User
 
 
 class TestUserDocs(unittest.TestCase):
@@ -35,9 +36,9 @@ class TestUserDocs(unittest.TestCase):
 
     def test_user_module_docstring(self):
         """Test for the user.py module docstring"""
-        self.assertIsNot(User.__doc__, None,
+        self.assertIsNot(user.__doc__, None,
                          "user.py needs a docstring")
-        self.assertTrue(len(User.__doc__) >= 1,
+        self.assertTrue(len(user.__doc__) >= 1,
                         "user.py needs a docstring")
 
     def test_user_class_docstring(self):

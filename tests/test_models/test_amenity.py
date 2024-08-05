@@ -6,10 +6,11 @@ Contains the TestAmenityDocs classes
 from datetime import datetime
 import inspect
 import models
-from models.amenity import Amenity
+from models import amenity
 from models.base_model import BaseModel
 import pycodestyle
 import unittest
+Amenity = amenity.Amenity
 
 
 class TestAmenityDocs(unittest.TestCase):
@@ -35,9 +36,9 @@ class TestAmenityDocs(unittest.TestCase):
 
     def test_amenity_module_docstring(self):
         """Test for the amenity.py module docstring"""
-        self.assertIsNot(Amenity.__doc__, None,
+        self.assertIsNot(amenity.__doc__, None,
                          "amenity.py needs a docstring")
-        self.assertTrue(len(Amenity.__doc__) >= 1,
+        self.assertTrue(len(amenity.__doc__) >= 1,
                         "amenity.py needs a docstring")
 
     def test_amenity_class_docstring(self):

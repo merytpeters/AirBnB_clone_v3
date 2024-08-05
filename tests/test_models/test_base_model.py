@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Test BaseModel for expected behavior and documentation"""
-from models.base_model import BaseModel
 from datetime import datetime, timezone
 import inspect
 import models
@@ -8,6 +7,7 @@ import pycodestyle
 import time
 import unittest
 from unittest import mock
+BaseModel = models.base_model.BaseModel
 module_doc = models.base_model.__doc__
 
 
