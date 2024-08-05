@@ -70,6 +70,16 @@ test_db_storage.py'])
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
+    @classmethod
+    def setUpClass(cls):
+        """Set up for the tests"""
+        cls.storage = models.storage
+        cls.storage.reload()
+
+    def setUp(self):
+        """Setup for each test"""
+        self.session = self.storage._DBStorage__session
+
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
@@ -78,11 +88,27 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
+        all_objects = self.storage.all()
+        self.assertIsInstance(all_objects, dict)
+        self.assertTrue(all(isinstance(obj, BaseModel)
+                        for obj in all_objects.values()))
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
+        initial_count = len(self.storage.all())
+        new_obj = BaseModel()
+        self.storage.new(new_obj)
+        self.storage.save()
+        self.assertEqual(len(self.storage.all()), initial_count + 1)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+        new_obj = BaseModel()
+        self.storage.new(new_obj)
+        self.storage.save()
+        key = f"{new_obj.__class__.__name__}.{new_obj.id}"
+        all_objects = self.storage.all()
+        self.assertIn(key, all_objects)
+        self.assertEqual(all_objects[key], new_obj)
